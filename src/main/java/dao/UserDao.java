@@ -53,7 +53,24 @@ public class UserDao extends BaseDao {
         return result.get(0);
     }
 
-    public User findByCartNumber(String name) {//TODO
-        return new User();
+    public User findByCartNumber(String nationalCode) {
+        Session session = sessionFactory.openSession();
+        List<User> result = null;
+        try {
+            session.beginTransaction();
+            String hql = "from User user where user.nationalCode=:nationalCode";
+            System.out.println(hql);
+            Query<User> query = session.createQuery(hql, User.class);
+            query.setParameter("nationalCode", nationalCode);
+            result = query.list();
+        } catch (HibernateException e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+        } finally {
+            session.close();
+        }
+        assert result != null;
+        return result.get(0);
     }
 }
