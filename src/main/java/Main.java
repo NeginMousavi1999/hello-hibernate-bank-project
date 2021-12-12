@@ -1,19 +1,21 @@
-import org.hibernate.HibernateException;
+import model.Account;
+import model.AccountType;
+import model.User;
+import model.UserType;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
+import service.UserService;
 
 import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * @author Negin Mousavi
  */
 public class Main {
     static SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+    static UserService userService = new UserService();
 
     public static void main(String[] args) {
 
@@ -40,7 +42,9 @@ public class Main {
         transaction.commit();
         session.close();
 
-        String userName;
+        System.out.println(userService.findByFirstName("jack"));
+        System.out.println(userService.findByLastName("ho"));
+/*        String userName;
 
         session = sessionFactory.openSession();
         try {
@@ -63,6 +67,6 @@ public class Main {
             }
         } finally {
             session.close();
-        }
+        }*/
     }
 }

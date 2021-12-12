@@ -1,3 +1,5 @@
+package model;
+
 import lombok.Data;
 
 import javax.persistence.*;
@@ -31,7 +33,7 @@ public class Account {
 
     @Override
     public String toString() {
-        return "Account{" +
+        return "model.Account{" +
                 "id=" + id +
                 ", accountNumber='" + accountNumber + '\'' +
                 ", cartNumber='" + cartNumber + '\'' +

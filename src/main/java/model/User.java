@@ -1,3 +1,5 @@
+package model;
+
 import lombok.Data;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -28,14 +30,14 @@ public class User {
     @Column(name = "last_update")
     @UpdateTimestamp
     private Date lastUpdate;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     private List<Account> accounts = new ArrayList<>();
     // لیستی از به روز رسانی های انجام شده به همراه تاریخ آن ها
 
 
     @Override
     public String toString() {
-        return "User{" +
+        return "model.User{" +
                 "id=" + id +
                 ", nationalCode='" + nationalCode + '\'' +
                 ", firstName='" + firstName + '\'' +
