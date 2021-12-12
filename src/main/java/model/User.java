@@ -33,7 +33,8 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     private List<Account> accounts = new ArrayList<>();
     // لیستی از به روز رسانی های انجام شده به همراه تاریخ آن ها
-
+    @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE)//TODO: i'm not sure about cascade
+    private List<Update> updates = new ArrayList<>();
 
     @Override
     public String toString() {

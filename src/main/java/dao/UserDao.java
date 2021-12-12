@@ -39,7 +39,7 @@ public class UserDao extends BaseDao {
             session.beginTransaction();
             String hql = "from User user where user.lastName=:name";
             System.out.println(hql);
-            Query<User> query = session.createQuery(hql);
+            Query<User> query = session.createQuery(hql, User.class);
             query.setParameter("name", name);
             result = query.list();
         } catch (HibernateException e) {

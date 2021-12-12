@@ -16,5 +16,7 @@
 
         <mapping class="model.Account"/>
         <mapping class="model.User"/>
+        <mapping class="model.Transaction"/>
+        <mapping class="model.Update"/>
     </session-factory>
 </hibernate-configuration>

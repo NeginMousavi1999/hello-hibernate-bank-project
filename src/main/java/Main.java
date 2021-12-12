@@ -42,8 +42,10 @@ public class Main {
         transaction.commit();
         session.close();
 
-        System.out.println(userService.findByFirstName("jack"));
-        System.out.println(userService.findByLastName("ho"));
+/*        System.out.println(userService.findByFirstName("jack"));
+        System.out.println(userService.findByLastName("ho"));*/
+
+
 /*        String userName;
 
         session = sessionFactory.openSession();

@@ -3,7 +3,9 @@ package model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Negin Mousavi
@@ -29,7 +31,9 @@ public class Account {
     private Date expirationDate;
     @ManyToOne
     private User user;
-    // اطلاعات سه تراکنش آخر انجام شده به همراه تاری خ آنها.
+    // اطلاعات سه تراکنش آخر انجام شده به همراه تاریخ آنها.
+    @OneToMany(mappedBy = "account")
+    private List<Transaction> transactions = new ArrayList<>();
 
     @Override
     public String toString() {
