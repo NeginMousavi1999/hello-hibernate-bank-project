@@ -93,4 +93,14 @@ public class UserDao extends BaseDao {
         transaction.commit();
         session.close();
     }
+
+    public List<Update> getUpdatesByUserId(int userId) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        String hql = "from Update updateInfo where updateInfo.user.id=:id";
+        System.out.println(hql);
+        Query<Update> query = session.createQuery(hql);
+        query.setParameter("id", userId);
+        return query.list();
+    }
 }

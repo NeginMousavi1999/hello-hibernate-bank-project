@@ -1,7 +1,10 @@
 package service;
 
 import dao.UserDao;
+import model.Update;
 import model.User;
+
+import java.util.List;
 
 /**
  * @author Negin Mousavi
@@ -31,5 +34,9 @@ public class UserService {
 
     public void editNationalCode(User user, String newValue) {
         userDao.updateNationalCode(user.getId(), newValue);
+    }
+
+    public List<Update> getUpdates(User user) {
+        return userDao.getUpdatesByUserId(user.getId());
     }
 }

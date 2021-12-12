@@ -32,12 +32,12 @@ public class User {
     private Date lastUpdate;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     private List<Account> accounts = new ArrayList<>();
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)//TODO: i'm not sure about cascade
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Update> updates = new ArrayList<>();
 
     @Override
     public String toString() {
-        return "model.User{" +
+        return "User{" +
                 "id=" + id +
                 ", nationalCode='" + nationalCode + '\'' +
                 ", firstName='" + firstName + '\'' +
