@@ -31,7 +31,7 @@ public class Account {
     private Date expirationDate;
     @ManyToOne
     private User user;
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
     private List<Transaction> transactions = new ArrayList<>();
 
     @Override

@@ -25,15 +25,17 @@ public class TransactionWithdrawTest {
     @ParameterizedTest
     @CsvSource({"1000, 1000", "1500, 500"})
     void giveAmount_WhenWithdrawCalls_ThenResponseReturn(double amount, double expect) {
+        transaction.setAmount(amount);
         transaction.getAccount().setBalance(2000);
-        double result = transaction.withdraw(amount);
+        double result = transaction.withdraw();
         assertEquals(expect, result);
     }
 
     @Test
     void givenAmountLessThanBalance_WhenWithdrawCalls_ThenExceptionResponseReturn() {
+        transaction.setAmount(2500);
         transaction.getAccount().setBalance(2000);
-        Exception exception = assertThrows(RuntimeException.class, () -> transaction.withdraw(2500));
+        Exception exception = assertThrows(RuntimeException.class, () -> transaction.withdraw());
         assertEquals("balance is not enough", exception.getMessage());
     }
 }

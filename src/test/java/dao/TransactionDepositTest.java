@@ -22,8 +22,9 @@ public class TransactionDepositTest {
     @ParameterizedTest
     @CsvSource({"1000, 2000", "1500, 2500"})
     void giveAmount_WhenDepositCalls_ThenResponseReturn(double amount, double expect) {
+        transaction.setAmount(amount);
         transaction.getAccount().setBalance(1000);
-        double result = transaction.deposit(amount);
+        double result = transaction.deposit();
         Assertions.assertEquals(expect, result);
     }
 }

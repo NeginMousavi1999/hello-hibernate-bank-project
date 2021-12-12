@@ -5,6 +5,7 @@ import service.AccountService;
 import service.UserService;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -27,70 +28,25 @@ public class Main {
                     createAcc();
                     break answerLoop;
                 case 2:
-                    updateUserInfo();//TODO
+                    updateUserInfo();
                     break answerLoop;
                 case 3:
-                    deposit();//TODO
+                    deposit();
                     break answerLoop;
                 case 4:
-                    withdraw();//TODO
+                    withdraw();
                     break answerLoop;
                 default:
                     printInvalidInput();
             }
         } while (true);
-
-/*        User user = new User();
-        user.setCreationDate(new Date());
-        user.setFirstName("jack");
-        user.setLastName("ho");
-        user.setNationalCode("0021899436");
-        user.setType(UserType.GOOD_DEALER);*/
-
-/*        Account account = new Account();
-        account.setAccountNumber("002211");
-        account.setBalance(25000);
-        account.setCartNumber("32165412");
-        account.setCvv2("2741");
-        account.setOpeningDate(new Date());
-        account.setType(AccountType.CURRENT);
-        account.setUser(user);
-        user.getAccounts().add(account);
-
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-        session.save(user);
-        transaction.commit();
-        session.close();*/
-
-/*        System.out.println(userService.findByFirstName("jack"));
-        System.out.println(userService.findByLastName("ho"));*/
-
-
-/*        String userName;
-
-        session = sessionFactory.openSession();
-        try {
-            session.beginTransaction();
-            String hql = "Select user.firstName from User user where user.nationalCode=:code";
-            System.out.println(hql);
-            Query query = session.createQuery(hql);
-            query.setParameter("code", "0021899436");
+/*
             List result = query.list();
-
-            System.out.println("result set: " + result);
-
             Iterator iterator = result.iterator();
             while (iterator.hasNext()) {
                 userName = (String) iterator.next();
             }
-        } catch (HibernateException e) {
-            if (session.getTransaction() != null) {
-                session.getTransaction().rollback();
-            }
-        } finally {
-            session.close();
-        }*/
+       */
     }
 
     private static void createAcc() {
@@ -101,7 +57,7 @@ public class Main {
         if (answer.equals("n"))
             user = getNewUserInfo();
         else
-            user = getUser();
+            user = getExistUser();
 
         System.out.print("ok... what account do you want?\n1.SHORT_TERM\n2.LONG_TERM\n3.CURRENT\n4.GOOD_LOAN\nyour answer: ");
         byte accountType = scanner.nextByte();
@@ -138,7 +94,7 @@ public class Main {
         System.out.println("invalid input");
     }
 
-    private static User getUser() {
+    private static User getExistUser() {
         System.out.print("enter your name: ");
         String name = scanner.nextLine();
         return userService.findByFirstName(name);
@@ -166,12 +122,35 @@ public class Main {
         return String.format(format, number);
     }
 
-    private static void withdraw() {
+    private static User getUserForDepositOrWithdraw() {
+        System.out.print("enter your name: ");
+        scanner.nextLine();
+        String name = scanner.nextLine();
+        return userService.findByFirstName(name);
+    }
 
+    private static void withdraw() {
+        User user = getUserForDepositOrWithdraw();
+        System.out.println("here your accounts: ");
+        List<Account> accounts = user.getAccounts();
+        accounts.forEach(System.out::println);
+        System.out.print("enter the number of acc you wanna withdraw: ");
+        int num = scanner.nextInt();
+        System.out.print("enter amount to withdraw: ");
+        double amount = scanner.nextDouble();
+        accountService.withdraw(accounts.get(num), amount);
     }
 
     private static void deposit() {
-
+        User user = getUserForDepositOrWithdraw();
+        System.out.println("here your accounts: ");
+        List<Account> accounts = user.getAccounts();
+        accounts.forEach(System.out::println);
+        System.out.print("enter the number of acc you wanna deposit: ");
+        int num = scanner.nextInt();
+        System.out.print("enter amount to deposit: ");
+        double amount = scanner.nextDouble();
+        accountService.deposit(accounts.get(num), amount);
     }
 
     private static void updateUserInfo() {
