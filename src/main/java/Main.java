@@ -17,7 +17,7 @@ public class Main {
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        System.out.println("Hi :) what do you wanna do?\n1.create an account\n2.update your info\n3.deposit\n4.withdraw");
+        System.out.print("Hi :) what do you wanna do?\n1.create an account\n2.update your info\n3.deposit\n4.withdraw\nyour answer: ");
         byte answer;
         answerLoop:
         do {
@@ -95,7 +95,7 @@ public class Main {
 
     private static void createAcc() {
         User user;
-        System.out.println("Do you have account yet?(y/n) ");
+        System.out.print("Do you have account yet?(y/n)\nyour answer: ");
         scanner.nextLine();
         String answer = scanner.nextLine();
         if (answer.equals("n"))
@@ -103,7 +103,7 @@ public class Main {
         else
             user = getUser();
 
-        System.out.println("ok... what account do you want?\n1.SHORT_TERM\n2.LONG_TERM\n3.CURRENT\n4.GOOD_LOAN");
+        System.out.print("ok... what account do you want?\n1.SHORT_TERM\n2.LONG_TERM\n3.CURRENT\n4.GOOD_LOAN\nyour answer: ");
         byte accountType = scanner.nextByte();
         Account account = new Account();
         switch (accountType) {
@@ -138,7 +138,7 @@ public class Main {
         System.out.println("invalid input");
     }
 
-    private static User getUser() {//TODO
+    private static User getUser() {
         System.out.print("enter your name: ");
         String name = scanner.nextLine();
         return userService.findByFirstName(name);
@@ -165,6 +165,7 @@ public class Main {
         String format = "%0" + digit + "d";
         return String.format(format, number);
     }
+
     private static void withdraw() {
 
     }
@@ -174,5 +175,28 @@ public class Main {
     }
 
     private static void updateUserInfo() {
+        System.out.print("enter your name: ");
+        scanner.nextLine();
+        String name = scanner.nextLine();
+        User user = userService.findByFirstName(name);
+        System.out.print("hi %s %s. which field do you wanna edit?\n1.first name\n2.last name\n3.national code\nyour answer: ");
+        byte answer = scanner.nextByte();
+        System.out.print("it will be: ");
+        scanner.nextLine();
+        String changedTo = scanner.nextLine();
+        switch (answer) {
+            case 1:
+                userService.editFirstName(user, changedTo);
+                break;
+            case 2:
+                userService.editLastName(user, changedTo);
+                break;
+            case 3:
+                userService.editNationalCode(user, changedTo);
+                break;
+            default:
+                printInvalidInput();
+        }
+        System.out.println("...DONE...");
     }
 }

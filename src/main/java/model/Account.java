@@ -31,7 +31,6 @@ public class Account {
     private Date expirationDate;
     @ManyToOne
     private User user;
-    // اطلاعات سه تراکنش آخر انجام شده به همراه تاریخ آنها.
     @OneToMany(mappedBy = "account")
     private List<Transaction> transactions = new ArrayList<>();
 
