@@ -22,15 +22,17 @@ public class Transaction {
     @ManyToOne
     private Account account;
 
-    public void deposit(double amount) {
+    public double deposit(double amount) {
         account.setBalance(account.getBalance() + amount);
+        return account.getBalance();
     }
 
-    public void withdraw(double amount) {
+    public double withdraw(double amount) {
         double balance = account.getBalance();
         if (balance < amount)
             throw new RuntimeException("balance is not enough");
 
         account.setBalance(balance - amount);
+        return account.getBalance();
     }
 }
