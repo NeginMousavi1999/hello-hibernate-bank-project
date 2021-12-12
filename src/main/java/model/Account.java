@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -34,6 +35,11 @@ public class Account {
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
     private List<Transaction> transactions = new ArrayList<>();
 
+    public Date generateExpirationDate() {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.YEAR, 4);
+        return cal.getTime();
+    }
     @Override
     public String toString() {
         return "model.Account{" +

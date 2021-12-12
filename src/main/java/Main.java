@@ -101,7 +101,7 @@ public class Main {
         System.out.print("enter your base balance: ");
         double balance = scanner.nextDouble();
         account.setBalance(balance);
-        //TODO: expirationDate
+        account.setExpirationDate(account.generateExpirationDate());
         account.setUser(user);
         accountService.save(account);
     }
