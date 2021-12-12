@@ -1,9 +1,13 @@
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author Negin Mousavi
@@ -36,9 +40,29 @@ public class Main {
         transaction.commit();
         session.close();
 
+        String userName;
+
         session = sessionFactory.openSession();
-        session.beginTransaction();
-        System.out.println(session.get(User.class, 1));
-        sessionFactory.close();
+        try {
+            session.beginTransaction();
+            String hql = "Select user.firstName from User user where user.nationalCode=:code";
+            System.out.println(hql);
+            Query query = session.createQuery(hql);
+            query.setParameter("code", "0021899436");
+            List result = query.list();
+
+            System.out.println("result set: " + result);
+
+            Iterator iterator = result.iterator();
+            while (iterator.hasNext()) {
+                userName = (String) iterator.next();
+            }
+        } catch (HibernateException e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+        } finally {
+            session.close();
+        }
     }
 }
