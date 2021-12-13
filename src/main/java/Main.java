@@ -2,6 +2,8 @@ import enumeration.AccountType;
 import model.Account;
 import model.Update;
 import model.User;
+import model.builder.AccountBuilder;
+import model.builder.UserBuilder;
 import service.AccountService;
 import service.UserService;
 
@@ -75,9 +77,18 @@ public class Main {
         else
             user = getExistUserToCreateNewAccount();
 
+        System.out.print("enter your base balance: ");
+        double balance = scanner.nextDouble();
+        Account account = AccountBuilder.getBuilder()
+                .withAccountNumber(generateNumberString("10", 1000000000))
+                .withCartNumber(generateNumberString("7", 7777777))
+                .withCvv2(generateNumberString("4", 4444))
+                .withOpeningDate(new Date())
+                .withUser(balance)
+                .withExpirationDate(Account.generateExpirationDate())
+                .withUser(user).build();
         System.out.print("ok... what account do you want?\n1.SHORT_TERM\n2.LONG_TERM\n3.CURRENT\n4.GOOD_LOAN\nyour answer: ");
         byte accountType = scanner.nextByte();
-        Account account = new Account();
         switch (accountType) {
             case 1:
                 account.setType(AccountType.SHORT_TERM);
@@ -93,16 +104,6 @@ public class Main {
                 account.setType(AccountType.GOOD_LOAN);
                 break;
         }
-
-        account.setAccountNumber(generateNumberString("10", 1000000000));
-        account.setCartNumber(generateNumberString("7", 7777777));
-        account.setCvv2(generateNumberString("4", 4444));
-        account.setOpeningDate(new Date());
-        System.out.print("enter your base balance: ");
-        double balance = scanner.nextDouble();
-        account.setBalance(balance);
-        account.setExpirationDate(account.generateExpirationDate());
-        account.setUser(user);
         accountService.save(account);
     }
 
@@ -117,18 +118,17 @@ public class Main {
     }
 
     private static User getNewUserInfo() {
-        User user = new User();
         System.out.print("first name: ");
         String fName = scanner.nextLine();
         System.out.print("last name: ");
         String lName = scanner.nextLine();
         System.out.print("national code: ");
         String nationalCode = scanner.nextLine();
-        user.setFirstName(fName);
-        user.setLastName(lName);
-        user.setNationalCode(nationalCode);
-        user.setCreationDate(new Date());
-        return user;
+        return UserBuilder.getBuilder()
+                .withFirstName(fName)
+                .withLastName(lName)
+                .withNationalCode(nationalCode)
+                .withCreationDate(new Date()).build();
     }
 
     public static String generateNumberString(String digit, int bound) {

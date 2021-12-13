@@ -36,11 +36,12 @@ public class Account {
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
     private List<Transaction> transactions = new ArrayList<>();
 
-    public Date generateExpirationDate() {
+    public static Date generateExpirationDate() {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.YEAR, 4);
         return cal.getTime();
     }
+
     @Override
     public String toString() {
         return "model.Account{" +

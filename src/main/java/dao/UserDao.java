@@ -18,7 +18,6 @@ public class UserDao extends BaseDao {
         List<User> result;
         session.beginTransaction();
         String hql = "from User user where user.firstName=:name";
-        System.out.println(hql);
         Query<User> query = session.createQuery(hql);
         query.setParameter("name", name);
         result = query.list();
@@ -35,7 +34,6 @@ public class UserDao extends BaseDao {
         List<User> result;
         session.beginTransaction();
         String hql = "from User user where user.lastName=:name";
-        System.out.println(hql);
         Query<User> query = session.createQuery(hql, User.class);
         query.setParameter("name", name);
         result = query.list();
@@ -52,7 +50,6 @@ public class UserDao extends BaseDao {
         List<User> result;
         session.beginTransaction();
         String hql = "from User user where user.nationalCode=:nationalCode";
-        System.out.println(hql);
         Query<User> query = session.createQuery(hql, User.class);
         query.setParameter("nationalCode", nationalCode);
         result = query.list();
