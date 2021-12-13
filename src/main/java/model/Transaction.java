@@ -1,5 +1,6 @@
 package model;
 
+import enumeration.TransactionType;
 import lombok.Data;
 
 import javax.persistence.*;

@@ -23,7 +23,11 @@ public class UserDao extends BaseDao {
         query.setParameter("name", name);
         result = query.list();
         assert result != null;
-        return result.get(0);
+        try {
+            return result.get(0);
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
     }
 
     public User findByLastName(String name) {
@@ -36,7 +40,11 @@ public class UserDao extends BaseDao {
         query.setParameter("name", name);
         result = query.list();
         assert result != null;
-        return result.get(0);
+        try {
+            return result.get(0);
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
     }
 
     public User findByCartNumber(String nationalCode) {
@@ -49,7 +57,11 @@ public class UserDao extends BaseDao {
         query.setParameter("nationalCode", nationalCode);
         result = query.list();
         assert result != null;
-        return result.get(0);
+        try {
+            return result.get(0);
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
     }
 
     public void updateFirstName(int id, String value) {

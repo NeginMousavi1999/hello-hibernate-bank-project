@@ -1,5 +1,5 @@
+import enumeration.AccountType;
 import model.Account;
-import model.AccountType;
 import model.Update;
 import model.User;
 import service.AccountService;
@@ -174,6 +174,10 @@ public class Main {
         scanner.nextLine();
         String name = scanner.nextLine();
         User user = userService.findByFirstName(name);
+        if (user == null) {
+            System.out.println("you are not registered....");
+            return;
+        }
         System.out.print("hi %s %s. which field do you wanna edit?\n1.first name\n2.last name\n3.national code\nyour answer: ");
         byte answer = scanner.nextByte();
         System.out.print("it will be: ");

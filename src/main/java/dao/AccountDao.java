@@ -1,7 +1,7 @@
 package dao;
 
 import model.Account;
-import model.TransactionType;
+import enumeration.TransactionType;
 import model.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;

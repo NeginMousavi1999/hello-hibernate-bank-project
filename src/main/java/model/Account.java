@@ -1,5 +1,6 @@
 package model;
 
+import enumeration.AccountType;
 import lombok.Data;
 
 import javax.persistence.*;

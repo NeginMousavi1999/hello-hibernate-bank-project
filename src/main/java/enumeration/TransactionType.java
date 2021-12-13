@@ -1,4 +1,4 @@
-package model;
+package enumeration;
 
 /**
  * @author Negin Mousavi
